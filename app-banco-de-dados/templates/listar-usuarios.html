@@ -25,16 +25,22 @@
                         <th>ID</th>
                         <th>Nome do Usuário</th>
                         <th>Senha</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for user in users %}
-                        <tr>
-                            <td>{{ user[0] }}</td>
-                            <td>{{ user[1] }}</td>
-                            <td>{{ user[2] }}</td>
-                        </tr>
-                    {% endfor %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user[0] }}</td>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[2] }}</td>
+                        <td> 
+                            <a  href="/excluir-usuario/{{user[0]}}">
+                                <button class="bg-danger">Excluir</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         {% else %}

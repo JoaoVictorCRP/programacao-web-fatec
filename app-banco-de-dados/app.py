@@ -26,7 +26,6 @@ for row in rows:
 def index():
     return render_template("cadastrar-cliente.html")
 
-
 @app.route("/cadastrar-cliente", methods=['POST'])
 def cadastrar_cliente():
     name = request.form['name']
@@ -49,7 +48,7 @@ def cadastrar_usuario():
     return render_template("cadastrar-usuario.html")
 
 @app.route("/cad-usuario", methods=['POST'])
-def insert_on_database(): # FIXME
+def insert_on_database():
     username = request.form['username']
     password = request.form['password']
     query = f"INSERT INTO joaovictor_tbusuario(username, senha) VALUES ('{username}','{password}')"
@@ -57,6 +56,13 @@ def insert_on_database(): # FIXME
     conn.commit()
 
     return render_template('cadastrar-usuario.html', inseriu=True)
+
+@app.route("/excluir-usuario/<int:user_id>")
+def excluir_usuario(user_id):
+    query = f"DELETE FROM joaovictor_tbusuario WHERE codigo = %s"
+    meu_cursor.execute(query, [user_id]) # Passar um valor como parametro do execute evita SQL Injection
+    conn.commit()
+    return redirect(url_for('list_users'))
 
 
 @app.route("/listar-usuarios", methods=['GET'])
